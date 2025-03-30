@@ -11,45 +11,45 @@ struct ContentView: View {
     
     @State private var message = ""
     @State private var imageName = ""
+    @State private var imageNumber = 0
     
     var body: some View {
         
         VStack {
             Spacer()
             
-            Image(systemName: imageName)
+            Image(imageName)
                 .resizable()
                 .scaledToFit()
-                .foregroundStyle(.orange)
+                .clipShape(RoundedRectangle(cornerRadius: 30))
+                .shadow(radius: 30)
             
             
             Text(message)
                 .font(.largeTitle)
-                .fontWeight(.ultraLight)
-            
+                .fontWeight(.heavy)
+                .foregroundStyle(.red)
             
             Spacer()
             
-            Button("Press Me!") {
+            Button("Show Message") {
                 
                 let message1 = "You are Awesome!"
                 let message2 = "You are Great!"
-                let imageString1 = "hand.thumbsup"
-                let imageString2 = "sun.max.fill"
                 
-                if message == message1 {
-                    message = message2
-                    imageName = imageString2
-                } else {
-                    message = message1
-                    imageName = imageString1
+                message = (message == message1 ? message2 : message1)
+                
+                imageName = "image\(imageNumber)"
+                
+                imageNumber += 1
+                
+                if imageNumber > 9 {
+                    imageNumber = 0
                 }
                 
             }
             .buttonStyle(.borderedProminent)
             .font(.title2)
-            .tint(.orange)
-            
             
         }
         .padding()
